@@ -205,3 +205,14 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+api
+/api
+teste
+/teste
+teste.py
+teste.*
+
+venv-10
+/venv-10
+\venv-10
