@@ -2,9 +2,8 @@ from doctr.io import DocumentFile
 from doctr.models import ocr_predictor
 import re
 from pathlib import Path
-import os
 
-def parseia_string(result, nome_arquivo):
+def parseia_string(result):
     """
     - Recebe a string completa retornada pelo OCR e extrai: Nome, Data e Numero
     - Substitui todas as "/" por "."
@@ -42,6 +41,7 @@ def parseia_string(result, nome_arquivo):
     return novo_nome
 
 # --- COMECO ---
+print("Carregando modelo OCR...")
 predictor = ocr_predictor(pretrained=True)
 pasta = Path("input")
 lista_arquivos = list(pasta.glob("*.pdf"))
@@ -54,13 +54,13 @@ PALAVRAS_CHAVE_NOME = ["Razao Social/Forecedor","Razao Social.Forecedor","FORNEC
 _data = re.compile(r"\b\d{2}/\d{2}/\d{4}\b")
 _numero = re.compile(r"^\d+$")
 
+print("Processando arquivos... AGUARDE ...")
 for arq in lista_arquivos:
     nome_arquivo = arq.name
-    
     doc = DocumentFile.from_pdf(arq)
     resul = predictor(doc)
     string_result = resul.render()
-    novo_nome = parseia_string(string_result,nome_arquivo)
+    novo_nome = parseia_string(string_result)
     _arquivo = arq.with_name(novo_nome)
     arq.rename(_arquivo)
     print(f"{nome_arquivo}  -->  {novo_nome}")
