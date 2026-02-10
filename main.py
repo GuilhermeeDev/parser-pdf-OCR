@@ -29,7 +29,7 @@ def parseia_string(result):
             continue
 
         # Número: geralmente vem logo após o rótulo "NUMERO" ou após a data
-        if numero is None and _numero.match(linha) and i > 0 and any(p in linhas[i - 2].upper() for p in PALAVRAS_CHAVE_NUMERO):
+        if numero is None and _numero.match(linha) and i > 0 and any(p in linhas[i - 2].upper() for p in PALAVRAS_CHAVE_NUMERO) or numero is None and _numero.match(linha) and i > 0 and any(p in linhas[i - 3].upper() for p in PALAVRAS_CHAVE_NUMERO):
             numero = linha
             continue
     
@@ -43,8 +43,11 @@ def parseia_string(result):
 # --- COMECO ---
 print("Carregando modelo OCR...")
 predictor = ocr_predictor(pretrained=True)
-pasta = Path("input")
-lista_arquivos = list(pasta.glob("*.pdf"))
+INPUT = Path("input")
+OUTPUT = Path("output")
+OUTPUT.mkdir(exist_ok=True)
+
+lista_arquivos = list(INPUT.glob("*.pdf"))
 
 # --- Palavras de Busca ---
 PALAVRAS_CHAVE_NUMERO = ["NUMERO", "NÚMERO"]
@@ -54,7 +57,7 @@ PALAVRAS_CHAVE_NOME = ["Razao Social/Forecedor","Razao Social.Forecedor","FORNEC
 _data = re.compile(r"\b\d{2}/\d{2}/\d{4}\b")
 _numero = re.compile(r"^\d+$")
 
-print("Processando arquivos... AGUARDE ...")
+print("Processando arquivos... aguarde...")
 for arq in lista_arquivos:
     nome_arquivo = arq.name
     doc = DocumentFile.from_pdf(arq)
@@ -64,3 +67,7 @@ for arq in lista_arquivos:
     _arquivo = arq.with_name(novo_nome)
     arq.rename(_arquivo)
     print(f"{nome_arquivo}  -->  {novo_nome}")
+    
+    if "nao_encontrado" in _arquivo.name.lower():
+        continue  # Pula arquivos com informações não encontradas
+    _arquivo.rename(OUTPUT / _arquivo.name)
