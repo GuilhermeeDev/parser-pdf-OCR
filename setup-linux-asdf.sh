@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mkdir input/ output/
+
 asdf uninstall python 3.10.0
 # Esse Script precisa necessariamente dessas bibliotecas Python para rodar a biblioteca Doctr do projeto
 sudo apt install -y libbz2-dev liblzma-dev libreadline-dev libsqlite3-dev libffi-dev libssl-dev zlib1g-dev libtk8.6 
