@@ -10,7 +10,7 @@ O projeto utiliza a biblioteca [DocTR](https://github.com/mindee/doctr "Reposit�
 
 # Como rodar o projeto
 
-#### 1️⃣ Rodando em Linux sem ASDF:
+#### Como rodar:
 ```
 git clone https://github.com/GuilhermeeDev/parser-pdf-OCR.git
 cd parser-pdf-OCR

@@ -232,3 +232,9 @@ output.py
 output.*
 output/*
 output/**
+
+/arquivos
+\arquivos
+/arquivos/*
+\arquivos/*
+/arquivos/**
