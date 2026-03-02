@@ -1,0 +1,8 @@
+.env
+venv/ 
+README.md 
+setup-linux-asdf.sh 
+setup-linux.sh 
+.gitignore
+docker-compose
+*.yml
