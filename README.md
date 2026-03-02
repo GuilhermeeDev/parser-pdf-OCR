@@ -39,4 +39,26 @@ python3 main.py
 ```
 
 ---
+### Docker Image
+Como buildar a dockerimage do projeto?
 
+Primeiro gere o seu `.env` com base nas especificações do `.env.example`
+```
+INPUT_DIR=# CAMINHO ABSOLUTO DA SUA PASTA CONTENDO OS ARQUIVOS .PDF
+OUTPUT_DIR=# CAMINHO ABSOLUTO DA SUA PASTA PARA ONDE OS ARQUIVOS RENOMEADOS SERÃO MOVIDOS
+```
+
+**1. Tente subir a imagem baixando do meu docker-hub**
+```
+docker compose up
+```
+
+**2. Criando a imagem local e usando**
+```
+docker build -t parser-pdf:1.0.0 .
+```
+
+Em seguida rode o composer da aplicação:
+```
+docker compose up
+```
