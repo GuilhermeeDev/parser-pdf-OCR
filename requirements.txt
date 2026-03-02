@@ -1,1 +1,3 @@
+python-dotenv
+python-multipart
 python-doctr[viz]
