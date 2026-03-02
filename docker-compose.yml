@@ -1,0 +1,16 @@
+services:
+  parser-pdf:
+    image: parser-pdf:1.0.0
+    container_name: parser-pdf
+    env_file:
+      - .env
+    volumes:
+      - ${INPUT_DIR}:/app/input      # Windows → Container
+      - ${OUTPUT_DIR}:/app/output
+
+    environment:
+      - INPUT_PATH=/app/input        # caminho DENTRO do container
+      - OUTPUT_PATH=/app/output
+    
+    mem_limit: 2GB
+    cpus: '4.0'
