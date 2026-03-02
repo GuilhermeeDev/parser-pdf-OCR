@@ -1,7 +1,11 @@
 from doctr.io import DocumentFile
 from doctr.models import ocr_predictor
 import re
+import os
+import shutil
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 def parseia_string(result):
     """
@@ -40,12 +44,14 @@ def parseia_string(result):
 
     return novo_nome
 
-# --- COMECO ---
+# --- COMEÇO ---
 print("Carregando modelo OCR...")
 predictor = ocr_predictor(pretrained=True)
-INPUT = Path("input")
-OUTPUT = Path("output")
-OUTPUT.mkdir(exist_ok=True)
+
+input_path = os.getenv("INPUT_PATH", "/app/input")
+output_path = os.getenv("OUTPUT_PATH", "/app/output")
+INPUT = Path(input_path)
+OUTPUT = Path(output_path)
 
 lista_arquivos = list(INPUT.glob("*.pdf"))
 
@@ -61,7 +67,7 @@ print("Processando arquivos... aguarde...")
 for arq in lista_arquivos:
     nome_arquivo = arq.name
     doc = DocumentFile.from_pdf(arq)
-    resul = predictor(doc)
+    resul = predictor(doc[:1])
     string_result = resul.render()
     novo_nome = parseia_string(string_result)
     _arquivo = arq.with_name(novo_nome)
@@ -69,5 +75,6 @@ for arq in lista_arquivos:
     print(f"{nome_arquivo}  -->  {novo_nome}")
     
     if "nao_encontrado" in _arquivo.name.lower():
-        continue  # Pula arquivos com informações não encontradas
-    _arquivo.rename(OUTPUT / _arquivo.name)
+        continue  
+    # _arquivo.rename(OUTPUT / _arquivo.name)
+    shutil.move(str(_arquivo), OUTPUT / _arquivo.name)
