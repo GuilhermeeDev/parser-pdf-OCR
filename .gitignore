@@ -238,5 +238,7 @@ output/**
 /arquivos/*
 \arquivos/*
 /arquivos/**
+teste/
+testes/
 
 parser-pdf-Colab/
