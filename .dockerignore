@@ -1,0 +1,6 @@
+README.md
+*.md
+main.ipynb
+*.sh
+.gitignore
+*.bat
