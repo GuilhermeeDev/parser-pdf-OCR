@@ -238,3 +238,5 @@ output/**
 /arquivos/*
 \arquivos/*
 /arquivos/**
+
+parser-pdf-Colab/
