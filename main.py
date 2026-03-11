@@ -1,14 +1,12 @@
 from doctr.io import DocumentFile
-from doctr.models import ocr_predictor
+from doctr.models import db_resnet50
 import re
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 def parseia_string(result):
-    """
-    - Recebe a string completa retornada pelo OCR e extrai: Nome, Data e Numero
-    - Substitui todas as "/" por "."
-    - Monta o nome do arquivo: "PGTO_N° <Numero> - [<Data>] - (<Nome>).pdf"
-    """
     nome , data, numero = None, None, None
     linhas = []
 
@@ -18,17 +16,14 @@ def parseia_string(result):
                 linhas.append(linha.strip())
 
     for i, linha in enumerate(linhas):
-        # Nome: Procura pelo antecessor das palavras-chave
         if nome is None and i > 0 and any(p in linhas[i - 2].upper() for p in PALAVRAS_CHAVE_NOME):
             nome = linha
             continue
 
-        # Data
         if data is None and _data.search(linha):
             data = _data.search(linha).group()
             continue
 
-        # Número: geralmente vem logo após o rótulo "NUMERO" ou após a data
         if numero is None and _numero.match(linha) and i > 0 and any(p in linhas[i - 2].upper() for p in PALAVRAS_CHAVE_NUMERO) or numero is None and _numero.match(linha) and i > 0 and any(p in linhas[i - 3].upper() for p in PALAVRAS_CHAVE_NUMERO):
             numero = linha
             continue
@@ -40,28 +35,21 @@ def parseia_string(result):
 
     return novo_nome
 
-# --- COMECO ---
-print("Carregando modelo OCR...")
-predictor = ocr_predictor(pretrained=True)
-INPUT = Path("input")
-OUTPUT = Path("output")
-OUTPUT.mkdir(exist_ok=True)
+INPUT = Path(os.getenv("INPUT_PATH"))
+OUTPUT = Path(os.getenv("OUTPUT_PATH"))
 
+# MODELO DE PREDICÇÂO
+predictor = db_resnet50(pretrained=True)
 lista_arquivos = list(INPUT.glob("*.pdf"))
-
-# --- Palavras de Busca ---
 PALAVRAS_CHAVE_NUMERO = ["NUMERO", "NÚMERO"]
-PALAVRAS_CHAVE_NOME = ["Razao Social/Forecedor","Razao Social.Forecedor","FORNECEDOR", "RAZAO SOCIAL"]
-
-# --- Regex ---
+PALAVRAS_CHAVE_NOME = ["Razao Social/Fornecedor","Razao Social.Fornecedor","FORNECEDOR", "RAZAO SOCIAL"]
 _data = re.compile(r"\b\d{2}/\d{2}/\d{4}\b")
 _numero = re.compile(r"^\d+$")
 
-print("Processando arquivos... aguarde...")
 for arq in lista_arquivos:
     nome_arquivo = arq.name
     doc = DocumentFile.from_pdf(arq)
-    resul = predictor(doc)
+    resul = predictor(doc[:1])
     string_result = resul.render()
     novo_nome = parseia_string(string_result)
     _arquivo = arq.with_name(novo_nome)
@@ -69,5 +57,5 @@ for arq in lista_arquivos:
     print(f"{nome_arquivo}  -->  {novo_nome}")
     
     if "nao_encontrado" in _arquivo.name.lower():
-        continue  # Pula arquivos com informações não encontradas
+        continue  
     _arquivo.rename(OUTPUT / _arquivo.name)
