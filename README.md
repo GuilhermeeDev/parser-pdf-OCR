@@ -22,18 +22,21 @@ cd parser-pdf-OCR
 **Instale as dependências:**
 - Linux:
 ```
-source ./setups/setup-linux.sh
+source ./setup-linux.sh
 ```
 
 - Linux com ASDF:
 ```
-source ./setups/setup-linux-asdf.sh
+source ./setup-linux-asdf.sh
 ```
 
 - Windows:
 ```
 cmd
-.\setups\setup-windows.bat
+```
+
+```
+.\setup-windows.bat
 ```
 
 **Rode o projeto:**
