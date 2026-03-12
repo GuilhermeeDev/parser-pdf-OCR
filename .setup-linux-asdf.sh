@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 mkdir input/ output/
+
+asdf install python 3.12.0
+asdf local python 3.12.0
+
 rm -rf venv/ env/ .venv/ .env/
 python -m venv venv
 
