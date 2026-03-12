@@ -20,14 +20,14 @@ git clone https://github.com/GuilhermeeDev/parser-pdf-OCR.git
 cd parser-pdf-OCR
 ```
 **Instale as dependências:**
-- Ubuntu sem ASDF:
+- Linux:
 ```
 source ./setup-linux.sh
 ```
 
-- Ubuntu com ASDF:
+- Linux com ASDF:
 ```
-source ./setup-linux-asdf.sh
+source ./.setup-linux-asdf.sh
 ```
 
 - Windows:
