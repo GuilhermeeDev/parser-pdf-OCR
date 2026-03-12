@@ -22,17 +22,18 @@ cd parser-pdf-OCR
 **Instale as dependências:**
 - Linux:
 ```
-source ./setup-linux.sh
+source ./setups/setup-linux.sh
 ```
 
 - Linux com ASDF:
 ```
-source ./.setup-linux-asdf.sh
+source ./setups/setup-linux-asdf.sh
 ```
 
 - Windows:
 ```
-.\setup-windows.bat
+cmd
+.\setups\setup-windows.bat
 ```
 
 **Rode o projeto:**
@@ -47,9 +48,16 @@ Windows:
 .\venv\Scripts\Activate.bat
 ```
 
+```
+python.exe -m pip install --upgrade pip
+```
+
+```
+pip install --no-cache-dir -r requirements.txt
+```
+
 Rode o projeto:
 ```
 python main.py
 ```
-
 ---
