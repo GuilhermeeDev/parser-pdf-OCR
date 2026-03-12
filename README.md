@@ -7,8 +7,8 @@ O projeto utiliza a biblioteca [DocTR](https://github.com/mindee/doctr "Reposit�
 
 ### 📦 Dependências do projeto
 
-- Python 3.10+ (buildado em asdf python 3.10.0)
-- doctr[viz] (CPU)
+- Python 3.12+ (buildado em asdf python 3.12.0)
+- Google Gemini API key (Free or Not-Free)
 
 ---
 
@@ -29,14 +29,27 @@ source ./setup-linux.sh
 ```
 source ./setup-linux-asdf.sh
 ```
+
+- Windows:
+```
+.\setup-windows.bat
+```
+
 **Rode o projeto:**
+Ative o ambiente virtual python gerado
+Linux: 
 ```
 source venv/bin/activate
 ```
 
+Windows:
 ```
-python3 main.py
+.\venv\Scripts\Activate.bat
+```
+
+Rode o projeto:
+```
+python main.py
 ```
 
 ---
-
