@@ -4,7 +4,7 @@ import os
 load_dotenv()
 
 API_KEY=os.getenv("API_GEMINI_KEY")
-genai.configure(api_key="")
+genai.configure(api_key=API_KEY)
 
 print("Modelos disponíveis para você:")
 for m in genai.list_models():
