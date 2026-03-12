@@ -9,7 +9,7 @@ pip install --upgrade pip
 pip install --no-cache-dir -r requirements.txt
 
 cat > .env << EOF
-API_GEMINI_KEY=
+API_GEMINI_KEY= # Acesse https://aistudio.google.com
 MODEL=gemini-2.5-flash
 INPUT_PATH=$(realpath ./input)
 OUTPUT_PATH=$(realpath ./output)

@@ -30,9 +30,12 @@ echo.
 echo ===== Gerando arquivo .env =====
 
 (
-echo API_GEMINI_KEY=#API_KEY
+echo API_GEMINI_KEY= # Acesse https://aistudio.google.com
+
 echo # Modelo padrao usado para testes
 echo MODEL=gemini-2.5-flash
+
+# Diretorio de entrada e saida de arquivos .pdf
 echo INPUT_PATH=%INPUT_DIR%
 echo OUTPUT_PATH=%OUTPUT_DIR%
 ) > "%BASE_DIR%\.env"
