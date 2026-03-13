@@ -46,6 +46,11 @@ Linux:
 source venv/bin/activate
 ```
 
+```
+python src/main.py
+```
+
+
 Windows:
 ```
 .\venv\Scripts\Activate.bat
@@ -61,6 +66,6 @@ pip install --no-cache-dir -r requirements.txt
 
 Rode o projeto:
 ```
-python main.py
+python .\src\main.py
 ```
 ---
